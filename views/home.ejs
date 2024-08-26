@@ -8,6 +8,9 @@
   <body>
     <center>
       <h1>URL Shortener</h1>
+      <% if (locals.id) { %>
+        <p>URL Generated: http://localhost:5000/url/<%= id %></p>
+        <% } %>
       <!-- FORM -->
       <form method="post" action="/url">
         <div>
@@ -20,22 +23,26 @@
       <br>
       <br>
       <!-- TABLE DISPLAY -->
-      <table>
-        <thead>
-          <th>S.No</th>
-          <th>ShortID</th>
-          <th>Redirect</th>
-          <th>Clicks</th>
-        </thead>
-        <% urls.forEach((url, index) => { %>
-        <tr>
-          <td><%= index + 1 %></td>
-          <td><%= url.shortId %></td>
-          <td><%= url.redirectURL %></td>
-          <td><%= url.visitHistory.length %></td>
-        </tr>
-        <% }); %>
-      </table>
+      <% if (locals.urls) { %>
+        <table>
+          <thead>
+            <th>S. No</th>
+            <th>ShortID</th>
+            <th>Redirect</th>
+            <th>Clicks</th>
+          </thead>
+          <tbody>
+            <% urls.forEach((url, index) => { %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= url.shortId %></td>
+              <td><%= url.redirectURL %></td>
+              <td><%= url.visitHistory.length %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <% } %>
     </center>
   </body>
 </html>
